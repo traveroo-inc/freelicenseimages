@@ -1,0 +1,23 @@
+.MainController {
+    &-root {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        flex: auto;
+    }
+
+    &-sponsored {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+        color: #7686AF;
+    }
+
+    &-logo {
+        margin-top: 16px;
+        margin-bottom: 28px;
+    }
+}

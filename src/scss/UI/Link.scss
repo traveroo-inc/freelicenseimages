@@ -1,0 +1,71 @@
+.Link {
+	&-root {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&-button-1 {
+		background-color: #313133;
+		cursor: pointer;
+		text-decoration: none;
+		border-radius: 36px;
+		box-sizing: border-box;
+		display: inline-block;
+		height: 36px;
+		margin-left: 8px;
+		min-width: 36px;
+		padding: 8px;
+		text-align: center;
+		padding: 5px 14px 5px 8px;
+		display: inline-flex;
+		margin: 0;
+		max-width: 100%;
+
+		&:hover .Link-text {
+			text-decoration: underline;
+		}
+	}
+
+	&-download, &-copy {
+        background-color: #313133;
+        cursor: pointer;
+        text-decoration: none;
+        border-radius: 36px;
+        height: 36px;
+        margin-left: 8px;
+        min-width: 36px;
+        flex-shrink: 0;
+		text-decoration: none;
+		
+		.Link-logo {
+			padding-right: 0;
+			width: 15px;
+			height: 15px;
+		}
+    }
+
+	&-text {
+		color: #fff;
+		font-size: 12px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		text-align-last: left;
+	}
+
+	&-logo {
+		padding-right: 5px;
+		color: #8ab4f8;
+		fill: #8ab4f8;
+		display: inline-block;
+		height: 24px;
+		width: 24px;
+
+		svg {
+			display: block;
+			height: 100%;
+			width: 100%;
+		}
+	}
+}

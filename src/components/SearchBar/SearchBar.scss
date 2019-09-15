@@ -1,0 +1,16 @@
+.SearchBar {
+    &-root {
+        display: flex;
+    }
+
+    &-input {
+        position: relative;
+        display: flex;
+        min-width: 400px;
+        width: 100%;
+    }
+
+    &-submit {
+        margin-left: 4px;
+    }
+}

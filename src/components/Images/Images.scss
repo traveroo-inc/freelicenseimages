@@ -1,0 +1,109 @@
+.Images {
+    &-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        width: calc(100% - 500px);
+        flex-grow: 1;
+    }
+
+    &-wrap {
+        display: flex;
+    }
+
+    &-item {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        padding: 8px;
+
+        img {
+            width: 100%;
+            height: 150px;
+            vertical-align: top;
+            margin-bottom: 8px;
+            cursor: pointer;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.03);
+
+            &:hover {
+                box-shadow: 0 2px 12px 0 rgba(0,0,0,0.35);
+            }
+        }
+
+        span {
+            font-size: 12px;
+            color: #3C4043;
+            letter-spacing: 0.2px;
+            line-height: 20px;
+            max-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    &-sidebar {
+        margin-top: 8px;
+    }
+}
+
+.Sidebar {
+    &-root {
+        position: sticky;
+        top: 0;
+        width: 500px;
+        min-width: 500px;
+        background-color: #141518;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    &-cover {
+        margin: 16px;
+
+            img {
+                width: 100%;
+                max-height: 450px;
+                vertical-align: top;
+                object-fit: contain;
+            }
+    }
+
+    &-info {
+        border-top-color: rgba(255,255,255,.2);
+        border-top-style: solid;
+        border-top-width: 1px;
+        margin-left: 16px;
+        margin-right: 16px;
+        padding-top: 16px;
+
+        &Control {
+            margin-bottom: 10px;
+        }
+
+        &Title {
+            color: rgba(255, 255, 255, .87);
+            display: block;
+            font-size: 20px;
+            line-height: 30px;
+            overflow: hidden;
+            text-decoration: none;
+            text-overflow: ellipsis;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+    }
+}
+
+.Control {
+    &-root {
+        display: flex;
+        height: 36px;
+    }
+
+    &-link {
+        flex-grow: 1;
+        margin: 0;
+        min-width: 36px;
+    }
+}

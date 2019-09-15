@@ -1,0 +1,41 @@
+html {
+	[class*=-isCenterToCenter] {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	[class*=-isRow] {
+		flex-direction: row;
+	}
+	
+	[class*=-is1to6] {
+		flex-basis: 1 / 6 * 100%;
+		max-width: 1 / 6 * 100%;
+		width: 1 / 6 * 100%;
+	}
+
+	[class*=-is1to4] {
+		flex-basis: 1 / 4 * 100%;
+		max-width: 1 / 4 * 100%;
+		width: 1 / 4 * 100%;
+	}
+
+	[class*=-is1to3] {
+		flex-basis: 1 / 3 * 100%;
+		max-width: 1 / 3 * 100%;
+		width: 1 / 3 * 100%;
+	}
+
+	[class*=-is1to2] {
+		flex-basis: 1 / 2 * 100%;
+		max-width: 1 / 2 * 100%;
+		width: 1 / 2 * 100%;
+	}
+
+	[class*=-is1to1] {
+		flex-basis: 1 / 1 * 100%;
+		max-width: 1 / 1 * 100%;
+		width: 1 / 1 * 100%;
+	}
+}
