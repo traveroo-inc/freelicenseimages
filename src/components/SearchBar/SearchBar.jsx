@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
+import Config from '../../config';
 import { ReactComponent as SearchIcon } from '../../assets/search.svg';
 import './SearchBar.scss';
 
@@ -21,7 +22,7 @@ class SearchBar extends React.Component {
     handleKeyPress = event => {
 		if (event.key === "Enter") {
 			this.props.history.push({
-                pathname: `/search/`,
+                pathname: `${Config.hostUrl}search/`,
                 search: `?text=${this.state.value}`
             });
             
@@ -48,7 +49,7 @@ class SearchBar extends React.Component {
                 </div>
                 <div className="SearchBar-submit">
                     <Link to={{
-                        pathname: `/search/`,
+                        pathname: `${Config.hostUrl}search/`,
                         search: `?text=${this.state.value}`
                     }} className="Button-root Button-search">Search</Link>
                 </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 
+import Config from '../../config';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Images from '../../components/Images/Images';
 import { ReactComponent as LogoIcon } from '../../assets/logo2.svg';
@@ -46,7 +47,7 @@ class IndexController extends React.Component {
 		return (
 			<div className="SearchController-root">
 				<div className="SearchController-logo">
-					<Link to="/" className="Icon-root Icon-link">
+					<Link to={`${Config.hostUrl}`} className="Icon-root Icon-link">
 						<LogoIcon className="Icon-root" />
 					</Link>
 				</div>
