@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 
 import Config from '../../config';
 import { ReactComponent as SearchIcon } from '../../assets/search.svg';
@@ -31,6 +30,12 @@ class SearchBar extends React.Component {
             }
         }
     };
+
+    handleClick = () => {
+        if (!!this.props.onFetch) {
+            this.props.onFetch(this.state.value);
+        }
+    }
     
 	render() {
 		return (
@@ -48,10 +53,7 @@ class SearchBar extends React.Component {
                     <SearchIcon className="Icon-root Icon-search Input-icon" />
                 </div>
                 <div className="SearchBar-submit">
-                    <Link to={{
-                        pathname: `${Config.hostUrl}search/`,
-                        search: `?text=${this.state.value}`
-                    }} className="Button-root Button-search">Search</Link>
+                    <span className="Button-root Button-search" onClick={this.handleClick}>Search</span>
                 </div>
             </div>
 		);

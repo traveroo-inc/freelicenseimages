@@ -2,8 +2,18 @@
     &-gallery {
         display: flex;
         flex-wrap: wrap;
-        width: calc(100% - 500px);
+        width: calc(100% - 880px);
         flex-grow: 1;
+        margin-left: 8px;
+        margin-right: 8px;
+
+        @media (max-width: 1920px) {
+            width: calc(100% - 650px);
+        }
+
+        @media (max-width: 1280px) {
+            width: calc(100% - 500px);
+        }
     }
 
     &-wrap {
@@ -15,15 +25,16 @@
         flex-direction: column;
         list-style: none;
         padding: 8px;
+        flex-grow: 1;
+        width: 250px;
+        position: relative;
 
         img {
             width: 100%;
             height: 150px;
             vertical-align: top;
-            margin-bottom: 8px;
             cursor: pointer;
             object-fit: contain;
-            background: rgba(0, 0, 0, 0.03);
 
             &:hover {
                 box-shadow: 0 2px 12px 0 rgba(0,0,0,0.35);
@@ -40,6 +51,45 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
+        &.active {
+            position: relative;
+
+            &::before {
+                content: "";
+                display: inline-block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                background-color: #e8f0fe;
+                border: 1px solid;
+                border-color: #4285f4;
+                border-radius: 6px;
+                box-sizing: border-box;
+                opacity: 1;
+                position: absolute;
+                pointer-events: none;
+                transition: opacity 175ms;
+            }
+
+            img {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    &-overlay {
+        // position: absolute;
+        // width: 100%;
+        // height: 100%;
+        // top: 0;
+        // left: 0;
+
+        background: rgba(0, 0, 0, 0.03);
+        margin-bottom: 8px;
     }
 
     &-sidebar {
@@ -51,22 +101,56 @@
     &-root {
         position: sticky;
         top: 0;
-        width: 500px;
-        min-width: 500px;
+        width: 880px;
+        min-width: 880px;
         background-color: #141518;
         height: 100vh;
         overflow-y: auto;
+
+        @media (max-width: 1920px) {
+            width: 650px;
+            min-width: 650px;
+        }
+
+        @media (max-width: 1280px) {
+            width: 500px;
+            min-width: 500px;
+        }
     }
 
     &-cover {
+        position: relative;
         margin: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 400px;
 
-            img {
-                width: 100%;
-                max-height: 450px;
-                vertical-align: top;
-                object-fit: contain;
+        img {
+            max-width: 100%;
+            max-height: 880px;
+            vertical-align: top;
+            object-fit: contain;
+
+            @media (max-width: 1920px) {
+                max-height: 650px;
             }
+    
+            @media (max-width: 1280px) {
+                max-height: 500px;
+            }
+        }
+    }
+
+    &-copyOverlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color:rgba(0, 0, 0, 0.6);
+        color: #fff;
     }
 
     &-info {
@@ -91,6 +175,40 @@
             text-overflow: ellipsis;
             white-space: normal;
             word-wrap: break-word;
+        }
+    }
+
+    &-close {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 48px;
+        height: 48px;
+        margin: 16px;
+
+        &Btn {
+            background-color: rgba(0, 0, 0, .3);
+            border-radius: 50%;
+            height: 24px;
+            width: 24px;
+            z-index: 2;
+            margin: 12px;
+            transition: 350ms all;
+            cursor: pointer;
+
+            svg {
+                transition: 350ms all;
+                fill: #fff;
+            }
+
+            &:hover {
+                background-color: rgba(0,0,0,.5);
+                transform: scale(1.2);
+
+                svg {
+                    transform: scale(.833);
+                }
+            }
         }
     }
 }

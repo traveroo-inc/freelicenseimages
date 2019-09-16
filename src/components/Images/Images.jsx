@@ -1,8 +1,10 @@
 import React from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { ReactComponent as LinkIcon } from '../../assets/link.svg';
 import { ReactComponent as DownloadIcon } from '../../assets/download.svg';
 import { ReactComponent as CopyIcon } from '../../assets/copy.svg';
+import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import './Images.scss';
 
 class Images extends React.Component {
@@ -11,6 +13,9 @@ class Images extends React.Component {
         images: this.props.images || [],
         clickIndex: null,
         sidebar: null,
+        activePrevImage: null,
+        activeNextImage: null,
+        showAlert: false,
     }
 
     joinArray = (arr, size) => {
@@ -25,20 +30,50 @@ class Images extends React.Component {
     }
 
     handleImageClick = (event) => {
+        
         let index = Number(event.target.getAttribute('data-index'));
+        event.target.parentNode.parentNode.classList.toggle('active');
+        window.scrollBy(0, event.target.parentNode.parentNode.getBoundingClientRect().top - 24);
+        
 
         this.setState({
             width: this.state.clickIndex !== index ? 'is1to3' : 'is1to4',
             clickIndex: this.state.clickIndex !== index ? index : null,
             sidebar: this.state.clickIndex !== index ? this.props.images[index] : null,
+            activePrevImage: this.state.clickIndex !== index ? event.target.parentNode.parentNode : null,
         });
+        
+        this.state.activePrevImage && this.state.activePrevImage.classList.remove('active');
+    }
+
+    onSibebarExit = () => {
+        this.state.activePrevImage && this.state.activePrevImage.classList.remove('active');
+
+        this.setState({
+            sidebar: null,
+            activePrevImage: null,
+        });
+    }
+    
+    handleClipboard = () => {
+        this.setState({
+            showAlert: true,
+        });
+
+        setTimeout(() => {
+            this.setState({
+                showAlert: false,
+            });    
+        }, 1000)
     }
     
 	render() {
         const childElements = this.props.images.map((img, index) => {
             return (
-                <li className={`Images-item Images-${this.state.width}`} key={index}>
-                    <img src={img.url[img.url.length - 1]} alt="" data-index={index} onClick={this.handleImageClick} />
+                <li className={`Images-item`} key={index}>
+                    <div className="Images-overlay">
+                        <img src={img.url[img.url.length - 1]} alt="" data-index={index} onClick={this.handleImageClick} />
+                    </div>
                     <span>{img.title || null}</span>
                     <span>{img.site || null}</span>
                 </li>
@@ -53,12 +88,15 @@ class Images extends React.Component {
                     </div>
                     {this.state.sidebar && <div className="Images-sidebar Sidebar-root">
                         <div className="Sidebar-cover">
-                            <img src={this.state.sidebar.url[this.state.sidebar.url.length - 1]} alt="" />
+                            <img src={this.state.sidebar.url[0]} alt="" />
+                            {this.state.showAlert && (
+                                <div className="Sidebar-copyOverlay">Ссылка скопирована</div>
+                            )}
                         </div>
                         <div className="Sidebar-info">
                             <div className="Sidebar-infoControl">
                                 <div className="Control-root">
-                                    <a href="/" className="Control-link" target="_blank" rel="noopener noreferrer">
+                                    <a href={this.state.sidebar.fullUrl} className="Control-link" target="_blank" rel="noopener noreferrer">
                                         <div className="Link-root Link-button-1">
                                             <span className="Link-logo">
                                                 <LinkIcon />
@@ -71,14 +109,21 @@ class Images extends React.Component {
                                             <DownloadIcon />
                                         </span>
                                     </a>
-                                    <a href="/" className="Link-root Link-copy" target="_blank" rel="noopener noreferrer">
-                                        <span className="Link-logo">
-                                            <CopyIcon />
+                                    <CopyToClipboard text={this.state.sidebar.url[0]} onCopy={this.handleClipboard}>
+                                        <span className="Link-root Link-copy" target="_blank" rel="noopener noreferrer">
+                                            <span className="Link-logo">
+                                                <CopyIcon />
+                                            </span>
                                         </span>
-                                    </a>
+                                    </CopyToClipboard>
                                 </div>
                             </div>
                             <div className="Sidebar-infoTitle">{this.state.sidebar.title}</div>
+                        </div>
+                        <div className="Sidebar-close">
+                            <div className="Sidebar-closeBtn" onClick={this.onSibebarExit}>
+                                <CloseIcon />
+                            </div>
                         </div>
                     </div>}
                 </div>
