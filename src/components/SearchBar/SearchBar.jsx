@@ -19,21 +19,28 @@ class SearchBar extends React.Component {
     };
     
     handleKeyPress = event => {
-		if (event.key === "Enter") {
+		if (event.key === "Enter" && this.state.value.length > 0) {
 			this.props.history.push({
                 pathname: `${Config.hostUrl}search/`,
                 search: `?text=${this.state.value}`
             });
             
             if (!!this.props.onFetch) {
-                this.props.onFetch(this.state.value);
+                this.props.onZeroImages();
             }
         }
     };
 
     handleClick = () => {
-        if (!!this.props.onFetch) {
-            this.props.onFetch(this.state.value);
+        if (this.state.value.length > 0) {
+            this.props.history.push({
+                pathname: `${Config.hostUrl}search/`,
+                search: `?text=${this.state.value}`
+            });
+            
+            if (!!this.props.onFetch) {
+                this.props.onZeroImages();
+            }
         }
     }
     

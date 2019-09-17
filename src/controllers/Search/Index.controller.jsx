@@ -19,27 +19,55 @@ class IndexController extends React.Component {
 		params: queryString.parse(this.props.location.search) || '',
 		value: queryString.parse(this.props.location.search).text || '',
 		images: [],
+		page: 1,
+		hasScroll: true,
 	}
 
 	componentDidMount() {
-		this.onFetch(this.state.value);
+		this.onFetch(this.state.value, this.state.page);
+		window.addEventListener('scroll', this.handleScroll)
+	}
+
+	UNSAFE_componentWillReceiveProps(p) {
+		this.setState({
+			value: queryString.parse(p.location.search).text || '',
+		});
+	}
+
+	zeroImages = () => {
+		this.setState({
+			images: [],
+			page: 1,
+		}, () => {
+			this.onFetch(this.state.value, this.state.page);
+		});
 	}
 	
-	onFetch = async value => {
-		if (value.length > 0) {
-			let flickrResponse = await flickrApi.getPhotos(value);
-			let unsplashResponse = await unsplashApi.getPhotos(value);
-			let wikimediaResponse = await wikimediaApi.getPhotos(value);
-			
-			let imagesApiResult = [
-				...flickrParse.parseUrl(flickrResponse),
-				...unsplashParse.parseUrl(unsplashResponse),
-				...wikimediaParse.parseUrl(wikimediaResponse)
-			];
+	onFetch = async (value, page) => {
+		this.setState({
+			hasScroll: false,
+		});
 
-			this.setState({
-				images: [...this.state.images, ...imagesApiResult],
-			});
+		let flickrResponse = await flickrApi.getPhotos(value, page);
+		let unsplashResponse = await unsplashApi.getPhotos(value, page);
+		let wikimediaResponse = await wikimediaApi.getPhotos(value, page);
+		
+		let imagesApiResult = [
+			...flickrParse.parseUrl(flickrResponse),
+			...unsplashParse.parseUrl(unsplashResponse),
+			...wikimediaParse.parseUrl(wikimediaResponse)
+		];
+
+		this.setState({
+			hasScroll: true,
+			images: [...this.state.images, ...imagesApiResult],
+			page: this.state.page + 1,
+		});
+	}
+	
+	handleScroll = () => {
+		if ((window.pageYOffset > document.getElementById('root').offsetHeight - window.innerHeight  - 300) && this.state.hasScroll) {
+			this.onFetch(this.state.value, this.state.page);
 		}
 	}
 
@@ -52,7 +80,7 @@ class IndexController extends React.Component {
 					</Link>
 				</div>
 				<div className="SearchController-search">
-					<SearchBar value={this.state.value} onFetch={this.onFetch} {...this.props} />
+					<SearchBar value={this.state.value} onFetch={this.onFetch} {...this.props} onZeroImages={this.zeroImages} />
 				</div>
 				<div className="SearchController-result">
 					<Images images={this.state.images} />
