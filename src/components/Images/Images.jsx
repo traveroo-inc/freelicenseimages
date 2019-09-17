@@ -68,6 +68,38 @@ class Images extends React.Component {
             });    
         }, 1000)
     }
+
+    handleDownload = () => {
+        this.convertImgToBase64URL(this.state.sidebar.url[0], base64 => {
+            var element = document.createElement('a');
+            element.setAttribute('href', base64);
+            element.setAttribute('download', 'image.jpg');
+        
+            element.style.display = 'none';
+            document.body.appendChild(element);
+        
+            element.click();
+        
+            document.body.removeChild(element);
+        });
+    }
+
+    convertImgToBase64URL = (url, callback, outputFormat) => {
+        var img = new Image();
+        img.crossOrigin = 'Anonymous';
+        img.onload = function(){
+            var canvas = document.createElement('CANVAS'),
+            ctx = canvas.getContext('2d'), dataURL;
+            canvas.height = img.height;
+            canvas.width = img.width;
+            ctx.drawImage(img, 0, 0);
+            dataURL = canvas.toDataURL(outputFormat);
+            callback(dataURL);
+            canvas = null; 
+        };
+    
+        img.src = url;
+    }
     
 	render() {
         const childElements = this.props.images.map((img, index) => {
@@ -107,11 +139,11 @@ class Images extends React.Component {
                                             <span className="Link-text">{this.state.sidebar.resurs}</span>
                                         </div>
                                     </a>
-                                    <a href={this.state.sidebar.url[0]} download="Test" className="Link-root Link-download" target="_blank" rel="noopener noreferrer">
+                                    <span data-href={this.state.sidebar.url[0]} download="Test" className="Link-root Link-download" rel="noopener noreferrer" onClick={this.handleDownload}>
                                         <span className="Link-logo">
                                             <DownloadIcon />
                                         </span>
-                                    </a>
+                                    </span>
                                     <CopyToClipboard text={this.state.sidebar.url[0]} onCopy={this.handleClipboard}>
                                         <span className="Link-root Link-copy" target="_blank" rel="noopener noreferrer">
                                             <span className="Link-logo">
