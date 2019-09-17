@@ -6,6 +6,7 @@ import { ReactComponent as DownloadIcon } from '../../assets/download.svg';
 import { ReactComponent as CopyIcon } from '../../assets/copy.svg';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import './Images.scss';
+import { ReactComponent as LoaderIcon } from '../../assets/loader.svg';
 
 class Images extends React.Component {
     state = {
@@ -85,6 +86,7 @@ class Images extends React.Component {
                 <div className="Images-wrap">
                     <div className="Images-gallery">
                         {childElements}
+                        {(!this.props.loading) && <LoaderIcon className="Icon-loader" />}
                     </div>
                     {this.state.sidebar && <div className="Images-sidebar Sidebar-root">
                         <div className="Sidebar-cover">
@@ -104,7 +106,7 @@ class Images extends React.Component {
                                             <span className="Link-text">{this.state.sidebar.resurs}</span>
                                         </div>
                                     </a>
-                                    <a href={this.state.sidebar.url[0]} className="Link-root Link-download" target="_blank" rel="noopener noreferrer">
+                                    <a href={this.state.sidebar.url[0]} download="Test" className="Link-root Link-download" target="_blank" rel="noopener noreferrer">
                                         <span className="Link-logo">
                                             <DownloadIcon />
                                         </span>

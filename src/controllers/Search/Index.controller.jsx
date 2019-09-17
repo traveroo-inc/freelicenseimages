@@ -83,7 +83,7 @@ class IndexController extends React.Component {
 					<SearchBar value={this.state.value} onFetch={this.onFetch} {...this.props} onZeroImages={this.zeroImages} />
 				</div>
 				<div className="SearchController-result">
-					<Images images={this.state.images} />
+					<Images images={this.state.images} loading={this.state.hasScroll} /> 
 				</div>
 			</div>
 		);
