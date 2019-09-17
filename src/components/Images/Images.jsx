@@ -52,6 +52,7 @@ class Images extends React.Component {
 
         this.setState({
             sidebar: null,
+            clickIndex: null,
             activePrevImage: null,
         });
     }
